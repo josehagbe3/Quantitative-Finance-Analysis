@@ -1,0 +1,329 @@
+---
+title: "Quantitative Finance Project"
+author: " José Thiéry M. Hagbe"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+institute: "African School of Economics"
+output:
+  pdf_document: 
+    toc: yes
+    keep_tex: True
+header-includes:
+  - \usepackage{pdfpages}
+  - \usepackage{graphicx}
+---
+
+```{r, include=FALSE}
+# knitr::opts_chunk$set(echo = TRUE)
+rm(list = ls(all = TRUE)); graphics.off(); cat("\014")
+setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
+
+set.seed(12345)
+listofpackages <- c("TSA", "writexl", "forecast", "astsa", "urca", "quantmod", "tseries", 
+                    "stargazer", "sandwich", "tinytex", "psych") 
+for (j in listofpackages){
+  if(sum(installed.packages()[, 1] == j) == 0) { install.packages(j) }
+  library(j, character.only = T)
+}
+```
+
+\newpage 
+
+# 1. Download APPLE daily data from Yahoo Finance with prices for one stock from 2019-01-01, to 2024-01-01.
+
+```{r}
+library(quantmod)
+# Download APPLE daily data from Yahoo Finance
+getSymbols("AAPL", src = "yahoo", from = "2019-01-01", to = "2024-01-01")
+Daily <- `AAPL`
+colnames(Daily) <- c("Open", "High", "Low", "Close", "Volume", "Adjusted")
+```
+# 2. Display the time series plot of the daily close data. Based on this information, do these data appear to come from a stationary or nonstationary process?
+
+```{r,  fig.height = 4, fig.width = 9}
+# Create daily close prices time series
+X <- ts(data = Daily$Close, start = c(2019, 1, 1), end =  c(2024, 1, 1), frequency = 365)
+
+# Create daily close prices time series plot
+tsplot(X, main = "Apple daily close prices time series", lwd = 2) 
+```
+
+### Comment: It appeared that these data are coming from nonstationary process
+
+# 3. Use the best subsets ARIMA approach to specify a model for the daily close data.
+
+## Decomposing the Data
+
+Decomposing the data into its trend, seasonal, and random error components will give some idea how these components relate to the observed dataset.
+
+```{r,  fig.height = 8, fig.width = 9}
+# Decomposition using multiplicative type 
+X.decomp <- decompose(X, type = "multiplicative")
+plot(X.decomp, lwd=2)
+```
+
+*Summary Statistics of the Data*
+```{r}
+summary(X)
+describe(X)
+```
+
+### Data Transformation To Achieve Stationarity
+
+Now, we will have to perform some data transformation to achieve Stationarity.
+
+```{r,  fig.height = 4, fig.width = 9}
+# Remove the trend from the data
+# First log Difference
+d.X = diff(log(X)) # to remove trend
+plot(d.X, main = "Log of Apple daily close prices time series", lwd=2)
+
+d.logX.365 = diff(d.X, lag = 365)  # remove seasonality
+plot(d.logX.365, main =" Log of Apple daily close price time series with lag = 365 ", lwd=2, col="blue")
+
+# test for stationarity
+adf.test(d.logX.365)
+```
+### Comment: We see that the series is stationary enough to do any kind of time series modelling.
+## Identification of the best model
+```{r}
+# Model Selection
+set.seed(123)
+auto.arima(d.logX.365, stationary = TRUE, ic = c("aic"), trace = TRUE)
+```
+
+### Comment: auto arima indicates us that the best arima model is ARIMA(1,0,1) 
+
+## Daily Model
+```{r}
+## Setting up the Model
+Daily.model <- arima(d.logX.365, order = c(1,0,1))
+```
+
+## Model evaluation 
+```{r}
+## Diagnostic Checking
+U.1 <- Daily.model$residuals
+plot(U.1)
+
+# Normality of the Residuals
+qqnorm(U.1); qqline(U.1)
+
+# ACF of residuals
+acf(U.1)
+plot(density(U.1))
+
+#Using tsdiag tools
+tsdiag(Daily.model, gof.lag = 15)
+```
+
+## Forecasting
+Using our best model, we can forecast the observations for the next 2 years.
+```{r}
+Daily.pred <- predict(Daily.model, n.ahead = 2*365)
+ts.plot(X, exp(Daily.pred$pred), log = "y", lty =c(1,3), lwd = 2)
+```
+
+
+
+
+
+
+
+
+
+\newpage
+# 4. Use the best subsets ARIMA approach to specify a model for the weekly close data.
+
+```{r}
+# Aggregate daily data to weekly
+Weekly <- to.weekly(Daily)
+colnames(Weekly) <- c("Open", "High", "Low", "Close", "Volume", "Adjusted")
+
+# Create weekly close prices time series
+Y <- ts(data = Weekly$Close, start = c(2019, 1, 1), end =  c(2024, 1, 1), frequency = 52)
+
+# Create weekly close prices time series
+plot(Y, main="Apple Weekly close prices time series", lwd = 2)
+```
+
+
+## Decomposing the Data
+
+Decomposing the data into its trend, seasonal, and random error components will give some idea how these components relate to the observed dataset.
+
+```{r,  fig.height = 8, fig.width = 9}
+# Decomposition using multiplicative type 
+Y.decomp <- decompose(Y, type = "multiplicative")
+plot(Y.decomp, lwd=2)
+```
+
+*Summary Statistics of the Data*
+```{r}
+summary(Y)
+describe(Y)
+```
+
+### Data Transformation To Achieve Stationarity
+
+Now, we will have to perform some data transformation to achieve Stationarity.
+
+```{r,  fig.height = 4, fig.width = 9}
+# Remove the trend from the data
+# First log Difference
+d.Y = diff(log(Y)) # to remove trend
+plot(d.Y, main = "Log of Apple weekly close prices time series", lwd=2)
+
+d.logY.52 = diff(d.Y, lag = 52)  # remove seasonality
+plot(d.logY.52, main =" Log of Apple weekly close price time series with lag = 52 ", lwd=2, col="blue")
+
+# test for stationarity
+adf.test(d.logY.52)
+```
+
+### Comment: We see that the series is stationary enough to do any kind of time series modelling.
+
+## Identification of the best model
+```{r}
+# Model Selection
+set.seed(123)
+auto.arima(d.logY.52, stationary = TRUE, ic = c("aic"), trace = TRUE)
+```
+### Comment: auto arima indicates us that the best arima model is ARIMA(0,0,0)(1,0,0)[52]
+## Weekly Model
+```{r}
+## Setting up the Model
+Weekly.model <- arima(d.logY.52, c(0, 0, 0) , seasonal = list(order = c(1, 0, 0), period = 52))
+```
+
+## Model evaluation 
+```{r}
+## Diagnostic Checking
+U.2 <- Weekly.model$residuals
+plot(U.2)
+
+# Normality of the Residuals
+qqnorm(U.2); qqline(U.2)
+
+# ACF of residuals
+acf(U.2)
+plot(density(U.2))
+
+#Using tsdiag tools
+tsdiag(Weekly.model, gof.lag = 15)
+```
+
+## Forecasting
+
+ Using our best model, we can forecast the observations for the next 2 years.
+```{r}
+Weekly.pred <- predict(Weekly.model, n.ahead = 2*52)
+ts.plot(Y, exp(Weekly.pred$pred), log = "y", lty =c(1,3), lwd = 1)
+```
+
+
+
+
+
+
+
+
+
+\newpage
+# 5. Use the best subsets ARIMA approach to specify a model for the monthly close data.
+
+
+
+```{r}
+# Aggregate daily data to monthly
+Monthly <- to.monthly(Daily)
+colnames(Monthly) <- c("Open", "High", "Low", "Close", "Volume", "Adjusted")
+
+# Create monthly close prices time series
+Z <- ts(data = Monthly$Close, start = c(2019, 1, 1), end =  c(2024, 1, 1), frequency = 12)
+
+# Create monthly close prices time series
+plot(Z, main="Apple monthly close prices time series", lwd = 2)
+```
+
+
+## Decomposing the Data
+
+Decomposing the data into its trend, seasonal, and random error components will give some idea how these components relate to the observed dataset.
+
+```{r,  fig.height = 8, fig.width = 9}
+
+# Decomposition using multiplicative type 
+Z.decomp <- decompose(Z, type = "multiplicative")
+
+plot(Z.decomp, lwd=2)
+```
+
+*Summary Statistics of the Data*
+```{r}
+summary(Z)
+describe(Z)
+```
+
+### Data Transformation To Achieve Stationarity
+
+Now, we will have to perform some data transformation to achieve Stationarity.
+
+```{r,  fig.height = 4, fig.width = 9}
+# Remove the trend from the data
+# First log Difference
+d.Z = diff(log(Z)) # to remove trend
+
+plot(d.Z, main = "Log of Apple monthly close prices time series", lwd=2)
+
+d.logZ.6 = diff(d.Z, lag = 6)  # remove seasonality
+plot(d.logZ.6, main =" Log of Apple monthly close price time series with lag = 6 ", lwd=2, col="blue")
+
+# test for stationarity
+adf.test(d.logZ.6)
+```
+
+### Comment: We see that the series is stationary enough to do any kind of time series modelling.
+
+## Identification of the best model
+```{r}
+# Model Selection
+set.seed(123)
+auto.arima(d.logZ.6, stationary = TRUE, ic = c("aic"), trace = TRUE)
+```
+### Comment: auto arima indicates us that the best arima model is ARIMA(0,0,0)
+
+## Weekly Model
+```{r}
+## Setting up the Model
+Monthly.model <- arima(d.logZ.6, c(0, 0, 0) )
+```
+
+## Model evaluation 
+```{r}
+## Diagnostic Checking
+U.3 <- Monthly.model$residuals
+plot(U.3)
+
+# Normality of the Residuals
+qqnorm(U.3); qqline(U.3)
+
+# ACF of residuals
+acf(U.3)
+plot(density(U.3))
+
+#Using tsdiag tools
+tsdiag(Monthly.model, gof.lag = 15)
+```
+## Forecasting
+  Using our best model, we can forecast the observations for the next 2 years.
+```{r}
+Monthly.pred <- predict(Monthly.model, n.ahead = 2*12)
+ts.plot(Z, exp(Monthly.pred$pred), log = "y", lty =c(1,3), lwd = 3)
+```
+
+
+# 6. Briefly comment on the differences between the best models for daily, weekly and monthly data.
+
+## Comparing Models
+
+Looking at the AIC/BIC values, coefficients, and diagnostic statistics of each of those three models, the Daily model in term of performance is better than Weekly one which its turn is better than the Monthly one.

@@ -1,0 +1,918 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{pdfpages}
+\usepackage{graphicx}
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={Quantitative Finance Project},
+  pdfauthor={José Thiéry M. Hagbe},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{Quantitative Finance Project}
+\author{José Thiéry M. Hagbe}
+\date{15 février, 2024}
+
+\begin{document}
+\maketitle
+
+{
+\setcounter{tocdepth}{2}
+\tableofcontents
+}
+\newpage
+
+\hypertarget{download-apple-daily-data-from-yahoo-finance-with-prices-for-one-stock-from-2019-01-01-to-2024-01-01.}{%
+\section{1. Download APPLE daily data from Yahoo Finance with prices for
+one stock from 2019-01-01, to
+2024-01-01.}\label{download-apple-daily-data-from-yahoo-finance-with-prices-for-one-stock-from-2019-01-01-to-2024-01-01.}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(quantmod)}
+\CommentTok{\# Download APPLE daily data from Yahoo Finance}
+\FunctionTok{getSymbols}\NormalTok{(}\StringTok{"AAPL"}\NormalTok{, }\AttributeTok{src =} \StringTok{"yahoo"}\NormalTok{, }\AttributeTok{from =} \StringTok{"2019{-}01{-}01"}\NormalTok{, }\AttributeTok{to =} \StringTok{"2024{-}01{-}01"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "AAPL"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Daily }\OtherTok{\textless{}{-}} \StringTok{\textasciigrave{}}\AttributeTok{AAPL}\StringTok{\textasciigrave{}}
+\FunctionTok{colnames}\NormalTok{(Daily) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"Open"}\NormalTok{, }\StringTok{"High"}\NormalTok{, }\StringTok{"Low"}\NormalTok{, }\StringTok{"Close"}\NormalTok{, }\StringTok{"Volume"}\NormalTok{, }\StringTok{"Adjusted"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{display-the-time-series-plot-of-the-daily-close-data.-based-on-this-information-do-these-data-appear-to-come-from-a-stationary-or-nonstationary-process}{%
+\section{2. Display the time series plot of the daily close data. Based
+on this information, do these data appear to come from a stationary or
+nonstationary
+process?}\label{display-the-time-series-plot-of-the-daily-close-data.-based-on-this-information-do-these-data-appear-to-come-from-a-stationary-or-nonstationary-process}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Create daily close prices time series}
+\NormalTok{X }\OtherTok{\textless{}{-}} \FunctionTok{ts}\NormalTok{(}\AttributeTok{data =}\NormalTok{ Daily}\SpecialCharTok{$}\NormalTok{Close, }\AttributeTok{start =} \FunctionTok{c}\NormalTok{(}\DecValTok{2019}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{), }\AttributeTok{end =}  \FunctionTok{c}\NormalTok{(}\DecValTok{2024}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{), }\AttributeTok{frequency =} \DecValTok{365}\NormalTok{)}
+
+\CommentTok{\# Create daily close prices time series plot}
+\FunctionTok{tsplot}\NormalTok{(X, }\AttributeTok{main =} \StringTok{"Apple daily close prices time series"}\NormalTok{, }\AttributeTok{lwd =} \DecValTok{2}\NormalTok{) }
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Quantitative_Finance_Project_files/figure-latex/unnamed-chunk-3-1.pdf}
+
+\hypertarget{comment-it-appeared-that-these-data-are-coming-from-nonstationary-process}{%
+\subsubsection{Comment: It appeared that these data are coming from
+nonstationary
+process}\label{comment-it-appeared-that-these-data-are-coming-from-nonstationary-process}}
+
+\hypertarget{use-the-best-subsets-arima-approach-to-specify-a-model-for-the-daily-close-data.}{%
+\section{3. Use the best subsets ARIMA approach to specify a model for
+the daily close
+data.}\label{use-the-best-subsets-arima-approach-to-specify-a-model-for-the-daily-close-data.}}
+
+\hypertarget{decomposing-the-data}{%
+\subsection{Decomposing the Data}\label{decomposing-the-data}}
+
+Decomposing the data into its trend, seasonal, and random error
+components will give some idea how these components relate to the
+observed dataset.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Decomposition using multiplicative type }
+\NormalTok{X.decomp }\OtherTok{\textless{}{-}} \FunctionTok{decompose}\NormalTok{(X, }\AttributeTok{type =} \StringTok{"multiplicative"}\NormalTok{)}
+\FunctionTok{plot}\NormalTok{(X.decomp, }\AttributeTok{lwd=}\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Quantitative_Finance_Project_files/figure-latex/unnamed-chunk-4-1.pdf}
+
+\emph{Summary Statistics of the Data}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(X)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##   35.55   64.31  117.51  109.58  148.48  198.11
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{describe}\NormalTok{(X)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    vars    n   mean   sd median trimmed   mad   min    max  range skew kurtosis
+## X1    1 1826 109.58 46.8 117.51  108.65 63.62 35.55 198.11 162.56 0.03    -1.34
+##     se
+## X1 1.1
+\end{verbatim}
+
+\hypertarget{data-transformation-to-achieve-stationarity}{%
+\subsubsection{Data Transformation To Achieve
+Stationarity}\label{data-transformation-to-achieve-stationarity}}
+
+Now, we will have to perform some data transformation to achieve
+Stationarity.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Remove the trend from the data}
+\CommentTok{\# First log Difference}
+\NormalTok{d.X }\OtherTok{=} \FunctionTok{diff}\NormalTok{(}\FunctionTok{log}\NormalTok{(X)) }\CommentTok{\# to remove trend}
+\FunctionTok{plot}\NormalTok{(d.X, }\AttributeTok{main =} \StringTok{"Log of Apple daily close prices time series"}\NormalTok{, }\AttributeTok{lwd=}\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Quantitative_Finance_Project_files/figure-latex/unnamed-chunk-6-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{d.logX}\FloatTok{.365} \OtherTok{=} \FunctionTok{diff}\NormalTok{(d.X, }\AttributeTok{lag =} \DecValTok{365}\NormalTok{)  }\CommentTok{\# remove seasonality}
+\FunctionTok{plot}\NormalTok{(d.logX}\FloatTok{.365}\NormalTok{, }\AttributeTok{main =}\StringTok{" Log of Apple daily close price time series with lag = 365 "}\NormalTok{, }\AttributeTok{lwd=}\DecValTok{2}\NormalTok{, }\AttributeTok{col=}\StringTok{"blue"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Quantitative_Finance_Project_files/figure-latex/unnamed-chunk-6-2.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# test for stationarity}
+\FunctionTok{adf.test}\NormalTok{(d.logX}\FloatTok{.365}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning in adf.test(d.logX.365): p-value smaller than printed p-value
+\end{verbatim}
+
+\begin{verbatim}
+## 
+##  Augmented Dickey-Fuller Test
+## 
+## data:  d.logX.365
+## Dickey-Fuller = -10.636, Lag order = 11, p-value = 0.01
+## alternative hypothesis: stationary
+\end{verbatim}
+
+\hypertarget{comment-we-see-that-the-series-is-stationary-enough-to-do-any-kind-of-time-series-modelling.}{%
+\subsubsection{Comment: We see that the series is stationary enough to
+do any kind of time series
+modelling.}\label{comment-we-see-that-the-series-is-stationary-enough-to-do-any-kind-of-time-series-modelling.}}
+
+\hypertarget{identification-of-the-best-model}{%
+\subsection{Identification of the best
+model}\label{identification-of-the-best-model}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Model Selection}
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{123}\NormalTok{)}
+\FunctionTok{auto.arima}\NormalTok{(d.logX}\FloatTok{.365}\NormalTok{, }\AttributeTok{stationary =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{ic =} \FunctionTok{c}\NormalTok{(}\StringTok{"aic"}\NormalTok{), }\AttributeTok{trace =} \ConstantTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Fitting models using approximations to speed things up...
+## 
+##  ARIMA(2,0,2)(1,0,1)[365] with non-zero mean : Inf
+##  ARIMA(0,0,0)             with non-zero mean : -3800.64
+##  ARIMA(1,0,0)(1,0,0)[365] with non-zero mean : Inf
+##  ARIMA(0,0,1)(0,0,1)[365] with non-zero mean : Inf
+##  ARIMA(0,0,0)             with zero mean     : -3802.639
+##  ARIMA(0,0,0)(1,0,0)[365] with non-zero mean : Inf
+##  ARIMA(0,0,0)(0,0,1)[365] with non-zero mean : Inf
+##  ARIMA(0,0,0)(1,0,1)[365] with non-zero mean : Inf
+##  ARIMA(1,0,0)             with non-zero mean : -3804.81
+##  ARIMA(1,0,0)(0,0,1)[365] with non-zero mean : Inf
+##  ARIMA(1,0,0)(1,0,1)[365] with non-zero mean : Inf
+##  ARIMA(2,0,0)             with non-zero mean : -3805.562
+##  ARIMA(2,0,0)(1,0,0)[365] with non-zero mean : Inf
+##  ARIMA(2,0,0)(0,0,1)[365] with non-zero mean : Inf
+##  ARIMA(2,0,0)(1,0,1)[365] with non-zero mean : Inf
+##  ARIMA(3,0,0)             with non-zero mean : -3802.814
+##  ARIMA(2,0,1)             with non-zero mean : -3804.158
+##  ARIMA(1,0,1)             with non-zero mean : -3806.506
+##  ARIMA(1,0,1)(1,0,0)[365] with non-zero mean : Inf
+##  ARIMA(1,0,1)(0,0,1)[365] with non-zero mean : Inf
+##  ARIMA(1,0,1)(1,0,1)[365] with non-zero mean : Inf
+##  ARIMA(0,0,1)             with non-zero mean : -3802.139
+##  ARIMA(1,0,2)             with non-zero mean : -3805.091
+##  ARIMA(0,0,2)             with non-zero mean : -3803.142
+##  ARIMA(2,0,2)             with non-zero mean : -3802.123
+##  ARIMA(1,0,1)             with zero mean     : -3808.5
+##  ARIMA(1,0,1)(1,0,0)[365] with zero mean     : Inf
+##  ARIMA(1,0,1)(0,0,1)[365] with zero mean     : Inf
+##  ARIMA(1,0,1)(1,0,1)[365] with zero mean     : Inf
+##  ARIMA(0,0,1)             with zero mean     : -3804.139
+##  ARIMA(1,0,0)             with zero mean     : -3806.806
+##  ARIMA(2,0,1)             with zero mean     : -3806.112
+##  ARIMA(1,0,2)             with zero mean     : -3807.087
+##  ARIMA(0,0,2)             with zero mean     : -3805.142
+##  ARIMA(2,0,0)             with zero mean     : -3807.56
+##  ARIMA(2,0,2)             with zero mean     : -3804.178
+## 
+##  Now re-fitting the best model(s) without approximations...
+## 
+##  ARIMA(1,0,1)             with zero mean     : -3805.768
+## 
+##  Best model: ARIMA(1,0,1)             with zero mean
+\end{verbatim}
+
+\begin{verbatim}
+## Series: d.logX.365 
+## ARIMA(1,0,1) with zero mean 
+## 
+## Coefficients:
+##           ar1     ma1
+##       -0.6791  0.7307
+## s.e.   0.1993  0.1859
+## 
+## sigma^2 = 0.004308:  log likelihood = 1905.88
+## AIC=-3805.77   AICc=-3805.75   BIC=-3789.91
+\end{verbatim}
+
+\hypertarget{comment-auto-arima-indicates-us-that-the-best-arima-model-is-arima101}{%
+\subsubsection{Comment: auto arima indicates us that the best arima
+model is
+ARIMA(1,0,1)}\label{comment-auto-arima-indicates-us-that-the-best-arima-model-is-arima101}}
+
+\hypertarget{daily-model}{%
+\subsection{Daily Model}\label{daily-model}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# Setting up the Model}
+\NormalTok{Daily.model }\OtherTok{\textless{}{-}} \FunctionTok{arima}\NormalTok{(d.logX}\FloatTok{.365}\NormalTok{, }\AttributeTok{order =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{model-evaluation}{%
+\subsection{Model evaluation}\label{model-evaluation}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# Diagnostic Checking}
+\NormalTok{U}\FloatTok{.1} \OtherTok{\textless{}{-}}\NormalTok{ Daily.model}\SpecialCharTok{$}\NormalTok{residuals}
+\FunctionTok{plot}\NormalTok{(U}\FloatTok{.1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Quantitative_Finance_Project_files/figure-latex/unnamed-chunk-9-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Normality of the Residuals}
+\FunctionTok{qqnorm}\NormalTok{(U}\FloatTok{.1}\NormalTok{); }\FunctionTok{qqline}\NormalTok{(U}\FloatTok{.1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Quantitative_Finance_Project_files/figure-latex/unnamed-chunk-9-2.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# ACF of residuals}
+\FunctionTok{acf}\NormalTok{(U}\FloatTok{.1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Quantitative_Finance_Project_files/figure-latex/unnamed-chunk-9-3.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(}\FunctionTok{density}\NormalTok{(U}\FloatTok{.1}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Quantitative_Finance_Project_files/figure-latex/unnamed-chunk-9-4.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Using tsdiag tools}
+\FunctionTok{tsdiag}\NormalTok{(Daily.model, }\AttributeTok{gof.lag =} \DecValTok{15}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Quantitative_Finance_Project_files/figure-latex/unnamed-chunk-9-5.pdf}
+
+\hypertarget{forecasting}{%
+\subsection{Forecasting}\label{forecasting}}
+
+Using our best model, we can forecast the observations for the next 2
+years.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Daily.pred }\OtherTok{\textless{}{-}} \FunctionTok{predict}\NormalTok{(Daily.model, }\AttributeTok{n.ahead =} \DecValTok{2}\SpecialCharTok{*}\DecValTok{365}\NormalTok{)}
+\FunctionTok{ts.plot}\NormalTok{(X, }\FunctionTok{exp}\NormalTok{(Daily.pred}\SpecialCharTok{$}\NormalTok{pred), }\AttributeTok{log =} \StringTok{"y"}\NormalTok{, }\AttributeTok{lty =}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{3}\NormalTok{), }\AttributeTok{lwd =} \DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Quantitative_Finance_Project_files/figure-latex/unnamed-chunk-10-1.pdf}
+
+\newpage
+
+\hypertarget{use-the-best-subsets-arima-approach-to-specify-a-model-for-the-weekly-close-data.}{%
+\section{4. Use the best subsets ARIMA approach to specify a model for
+the weekly close
+data.}\label{use-the-best-subsets-arima-approach-to-specify-a-model-for-the-weekly-close-data.}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Aggregate daily data to weekly}
+\NormalTok{Weekly }\OtherTok{\textless{}{-}} \FunctionTok{to.weekly}\NormalTok{(Daily)}
+\FunctionTok{colnames}\NormalTok{(Weekly) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"Open"}\NormalTok{, }\StringTok{"High"}\NormalTok{, }\StringTok{"Low"}\NormalTok{, }\StringTok{"Close"}\NormalTok{, }\StringTok{"Volume"}\NormalTok{, }\StringTok{"Adjusted"}\NormalTok{)}
+
+\CommentTok{\# Create weekly close prices time series}
+\NormalTok{Y }\OtherTok{\textless{}{-}} \FunctionTok{ts}\NormalTok{(}\AttributeTok{data =}\NormalTok{ Weekly}\SpecialCharTok{$}\NormalTok{Close, }\AttributeTok{start =} \FunctionTok{c}\NormalTok{(}\DecValTok{2019}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{), }\AttributeTok{end =}  \FunctionTok{c}\NormalTok{(}\DecValTok{2024}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{), }\AttributeTok{frequency =} \DecValTok{52}\NormalTok{)}
+
+\CommentTok{\# Create weekly close prices time series}
+\FunctionTok{plot}\NormalTok{(Y, }\AttributeTok{main=}\StringTok{"Apple Weekly close prices time series"}\NormalTok{, }\AttributeTok{lwd =} \DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Quantitative_Finance_Project_files/figure-latex/unnamed-chunk-11-1.pdf}
+
+\hypertarget{decomposing-the-data-1}{%
+\subsection{Decomposing the Data}\label{decomposing-the-data-1}}
+
+Decomposing the data into its trend, seasonal, and random error
+components will give some idea how these components relate to the
+observed dataset.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Decomposition using multiplicative type }
+\NormalTok{Y.decomp }\OtherTok{\textless{}{-}} \FunctionTok{decompose}\NormalTok{(Y, }\AttributeTok{type =} \StringTok{"multiplicative"}\NormalTok{)}
+\FunctionTok{plot}\NormalTok{(Y.decomp, }\AttributeTok{lwd=}\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Quantitative_Finance_Project_files/figure-latex/unnamed-chunk-12-1.pdf}
+
+\emph{Summary Statistics of the Data}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(Y)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      Close       
+##  Min.   : 37.06  
+##  1st Qu.: 77.53  
+##  Median :134.32  
+##  Mean   :123.06  
+##  3rd Qu.:160.55  
+##  Max.   :197.57
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{describe}\NormalTok{(Y)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    vars   n   mean    sd median trimmed   mad   min    max  range skew kurtosis
+## X1    1 261 123.06 46.64 134.32   124.8 50.88 37.06 197.57 160.51 -0.4    -1.16
+##      se
+## X1 2.89
+\end{verbatim}
+
+\hypertarget{data-transformation-to-achieve-stationarity-1}{%
+\subsubsection{Data Transformation To Achieve
+Stationarity}\label{data-transformation-to-achieve-stationarity-1}}
+
+Now, we will have to perform some data transformation to achieve
+Stationarity.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Remove the trend from the data}
+\CommentTok{\# First log Difference}
+\NormalTok{d.Y }\OtherTok{=} \FunctionTok{diff}\NormalTok{(}\FunctionTok{log}\NormalTok{(Y)) }\CommentTok{\# to remove trend}
+\FunctionTok{plot}\NormalTok{(d.Y, }\AttributeTok{main =} \StringTok{"Log of Apple weekly close prices time series"}\NormalTok{, }\AttributeTok{lwd=}\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Quantitative_Finance_Project_files/figure-latex/unnamed-chunk-14-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{d.logY}\FloatTok{.52} \OtherTok{=} \FunctionTok{diff}\NormalTok{(d.Y, }\AttributeTok{lag =} \DecValTok{52}\NormalTok{)  }\CommentTok{\# remove seasonality}
+\FunctionTok{plot}\NormalTok{(d.logY}\FloatTok{.52}\NormalTok{, }\AttributeTok{main =}\StringTok{" Log of Apple weekly close price time series with lag = 52 "}\NormalTok{, }\AttributeTok{lwd=}\DecValTok{2}\NormalTok{, }\AttributeTok{col=}\StringTok{"blue"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Quantitative_Finance_Project_files/figure-latex/unnamed-chunk-14-2.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# test for stationarity}
+\FunctionTok{adf.test}\NormalTok{(d.logY}\FloatTok{.52}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning in adf.test(d.logY.52): p-value smaller than printed p-value
+\end{verbatim}
+
+\begin{verbatim}
+## 
+##  Augmented Dickey-Fuller Test
+## 
+## data:  d.logY.52
+## Dickey-Fuller = -5.5748, Lag order = 5, p-value = 0.01
+## alternative hypothesis: stationary
+\end{verbatim}
+
+\hypertarget{comment-we-see-that-the-series-is-stationary-enough-to-do-any-kind-of-time-series-modelling.-1}{%
+\subsubsection{Comment: We see that the series is stationary enough to
+do any kind of time series
+modelling.}\label{comment-we-see-that-the-series-is-stationary-enough-to-do-any-kind-of-time-series-modelling.-1}}
+
+\hypertarget{identification-of-the-best-model-1}{%
+\subsection{Identification of the best
+model}\label{identification-of-the-best-model-1}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Model Selection}
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{123}\NormalTok{)}
+\FunctionTok{auto.arima}\NormalTok{(d.logY}\FloatTok{.52}\NormalTok{, }\AttributeTok{stationary =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{ic =} \FunctionTok{c}\NormalTok{(}\StringTok{"aic"}\NormalTok{), }\AttributeTok{trace =} \ConstantTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Fitting models using approximations to speed things up...
+## 
+##  ARIMA(2,0,2)(1,0,1)[52] with non-zero mean : Inf
+##  ARIMA(0,0,0)            with non-zero mean : -580.0943
+##  ARIMA(1,0,0)(1,0,0)[52] with non-zero mean : -674.1046
+##  ARIMA(0,0,1)(0,0,1)[52] with non-zero mean : Inf
+##  ARIMA(0,0,0)            with zero mean     : -581.9694
+##  ARIMA(1,0,0)            with non-zero mean : -578.5567
+##  ARIMA(1,0,0)(1,0,1)[52] with non-zero mean : -678.1467
+##  ARIMA(1,0,0)(0,0,1)[52] with non-zero mean : Inf
+##  ARIMA(0,0,0)(1,0,1)[52] with non-zero mean : -678.5859
+##  ARIMA(0,0,0)(0,0,1)[52] with non-zero mean : Inf
+##  ARIMA(0,0,0)(1,0,0)[52] with non-zero mean : -674.561
+##  ARIMA(0,0,1)(1,0,1)[52] with non-zero mean : -678.4059
+##  ARIMA(1,0,1)(1,0,1)[52] with non-zero mean : -676.8726
+##  ARIMA(0,0,0)(1,0,1)[52] with zero mean     : -677.6064
+## 
+##  Now re-fitting the best model(s) without approximations...
+## 
+##  ARIMA(0,0,0)(1,0,1)[52] with non-zero mean : Inf
+##  ARIMA(0,0,1)(1,0,1)[52] with non-zero mean : Inf
+##  ARIMA(1,0,0)(1,0,1)[52] with non-zero mean : Inf
+##  ARIMA(0,0,0)(1,0,1)[52] with zero mean     : Inf
+##  ARIMA(1,0,1)(1,0,1)[52] with non-zero mean : Inf
+##  ARIMA(0,0,0)(1,0,0)[52] with non-zero mean : -634.7971
+## 
+##  Best model: ARIMA(0,0,0)(1,0,0)[52] with non-zero mean
+\end{verbatim}
+
+\begin{verbatim}
+## Series: d.logY.52 
+## ARIMA(0,0,0)(1,0,0)[52] with non-zero mean 
+## 
+## Coefficients:
+##          sar1     mean
+##       -0.5661  -0.0030
+## s.e.   0.0612   0.0024
+## 
+## sigma^2 = 0.002465:  log likelihood = 320.4
+## AIC=-634.8   AICc=-634.68   BIC=-624.78
+\end{verbatim}
+
+\hypertarget{comment-auto-arima-indicates-us-that-the-best-arima-model-is-arima00010052}{%
+\subsubsection{Comment: auto arima indicates us that the best arima
+model is
+ARIMA(0,0,0)(1,0,0){[}52{]}}\label{comment-auto-arima-indicates-us-that-the-best-arima-model-is-arima00010052}}
+
+\hypertarget{weekly-model}{%
+\subsection{Weekly Model}\label{weekly-model}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# Setting up the Model}
+\NormalTok{Weekly.model }\OtherTok{\textless{}{-}} \FunctionTok{arima}\NormalTok{(d.logY}\FloatTok{.52}\NormalTok{, }\FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{) , }\AttributeTok{seasonal =} \FunctionTok{list}\NormalTok{(}\AttributeTok{order =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{), }\AttributeTok{period =} \DecValTok{52}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{model-evaluation-1}{%
+\subsection{Model evaluation}\label{model-evaluation-1}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# Diagnostic Checking}
+\NormalTok{U}\FloatTok{.2} \OtherTok{\textless{}{-}}\NormalTok{ Weekly.model}\SpecialCharTok{$}\NormalTok{residuals}
+\FunctionTok{plot}\NormalTok{(U}\FloatTok{.2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Quantitative_Finance_Project_files/figure-latex/unnamed-chunk-17-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Normality of the Residuals}
+\FunctionTok{qqnorm}\NormalTok{(U}\FloatTok{.2}\NormalTok{); }\FunctionTok{qqline}\NormalTok{(U}\FloatTok{.2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Quantitative_Finance_Project_files/figure-latex/unnamed-chunk-17-2.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# ACF of residuals}
+\FunctionTok{acf}\NormalTok{(U}\FloatTok{.2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Quantitative_Finance_Project_files/figure-latex/unnamed-chunk-17-3.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(}\FunctionTok{density}\NormalTok{(U}\FloatTok{.2}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Quantitative_Finance_Project_files/figure-latex/unnamed-chunk-17-4.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Using tsdiag tools}
+\FunctionTok{tsdiag}\NormalTok{(Weekly.model, }\AttributeTok{gof.lag =} \DecValTok{15}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Quantitative_Finance_Project_files/figure-latex/unnamed-chunk-17-5.pdf}
+
+\hypertarget{forecasting-1}{%
+\subsection{Forecasting}\label{forecasting-1}}
+
+Using our best model, we can forecast the observations for the next 2
+years.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Weekly.pred }\OtherTok{\textless{}{-}} \FunctionTok{predict}\NormalTok{(Weekly.model, }\AttributeTok{n.ahead =} \DecValTok{2}\SpecialCharTok{*}\DecValTok{52}\NormalTok{)}
+\FunctionTok{ts.plot}\NormalTok{(Y, }\FunctionTok{exp}\NormalTok{(Weekly.pred}\SpecialCharTok{$}\NormalTok{pred), }\AttributeTok{log =} \StringTok{"y"}\NormalTok{, }\AttributeTok{lty =}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{3}\NormalTok{), }\AttributeTok{lwd =} \DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Quantitative_Finance_Project_files/figure-latex/unnamed-chunk-18-1.pdf}
+
+\newpage
+
+\hypertarget{use-the-best-subsets-arima-approach-to-specify-a-model-for-the-monthly-close-data.}{%
+\section{5. Use the best subsets ARIMA approach to specify a model for
+the monthly close
+data.}\label{use-the-best-subsets-arima-approach-to-specify-a-model-for-the-monthly-close-data.}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Aggregate daily data to monthly}
+\NormalTok{Monthly }\OtherTok{\textless{}{-}} \FunctionTok{to.monthly}\NormalTok{(Daily)}
+\FunctionTok{colnames}\NormalTok{(Monthly) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"Open"}\NormalTok{, }\StringTok{"High"}\NormalTok{, }\StringTok{"Low"}\NormalTok{, }\StringTok{"Close"}\NormalTok{, }\StringTok{"Volume"}\NormalTok{, }\StringTok{"Adjusted"}\NormalTok{)}
+
+\CommentTok{\# Create monthly close prices time series}
+\NormalTok{Z }\OtherTok{\textless{}{-}} \FunctionTok{ts}\NormalTok{(}\AttributeTok{data =}\NormalTok{ Monthly}\SpecialCharTok{$}\NormalTok{Close, }\AttributeTok{start =} \FunctionTok{c}\NormalTok{(}\DecValTok{2019}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{), }\AttributeTok{end =}  \FunctionTok{c}\NormalTok{(}\DecValTok{2024}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{), }\AttributeTok{frequency =} \DecValTok{12}\NormalTok{)}
+
+\CommentTok{\# Create monthly close prices time series}
+\FunctionTok{plot}\NormalTok{(Z, }\AttributeTok{main=}\StringTok{"Apple monthly close prices time series"}\NormalTok{, }\AttributeTok{lwd =} \DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Quantitative_Finance_Project_files/figure-latex/unnamed-chunk-19-1.pdf}
+
+\hypertarget{decomposing-the-data-2}{%
+\subsection{Decomposing the Data}\label{decomposing-the-data-2}}
+
+Decomposing the data into its trend, seasonal, and random error
+components will give some idea how these components relate to the
+observed dataset.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Decomposition using multiplicative type }
+\NormalTok{Z.decomp }\OtherTok{\textless{}{-}} \FunctionTok{decompose}\NormalTok{(Z, }\AttributeTok{type =} \StringTok{"multiplicative"}\NormalTok{)}
+
+\FunctionTok{plot}\NormalTok{(Z.decomp, }\AttributeTok{lwd=}\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Quantitative_Finance_Project_files/figure-latex/unnamed-chunk-20-1.pdf}
+
+\emph{Summary Statistics of the Data}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(Z)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##   41.61   73.45  132.69  122.95  162.51  196.45
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{describe}\NormalTok{(Z)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    vars  n   mean    sd median trimmed   mad   min    max  range  skew kurtosis
+## X1    1 61 122.95 48.02 132.69  124.37 54.84 41.61 196.45 154.84 -0.35    -1.23
+##      se
+## X1 6.15
+\end{verbatim}
+
+\hypertarget{data-transformation-to-achieve-stationarity-2}{%
+\subsubsection{Data Transformation To Achieve
+Stationarity}\label{data-transformation-to-achieve-stationarity-2}}
+
+Now, we will have to perform some data transformation to achieve
+Stationarity.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Remove the trend from the data}
+\CommentTok{\# First log Difference}
+\NormalTok{d.Z }\OtherTok{=} \FunctionTok{diff}\NormalTok{(}\FunctionTok{log}\NormalTok{(Z)) }\CommentTok{\# to remove trend}
+
+\FunctionTok{plot}\NormalTok{(d.Z, }\AttributeTok{main =} \StringTok{"Log of Apple monthly close prices time series"}\NormalTok{, }\AttributeTok{lwd=}\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Quantitative_Finance_Project_files/figure-latex/unnamed-chunk-22-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{d.logZ}\FloatTok{.6} \OtherTok{=} \FunctionTok{diff}\NormalTok{(d.Z, }\AttributeTok{lag =} \DecValTok{6}\NormalTok{)  }\CommentTok{\# remove seasonality}
+\FunctionTok{plot}\NormalTok{(d.logZ}\FloatTok{.6}\NormalTok{, }\AttributeTok{main =}\StringTok{" Log of Apple monthly close price time series with lag = 6 "}\NormalTok{, }\AttributeTok{lwd=}\DecValTok{2}\NormalTok{, }\AttributeTok{col=}\StringTok{"blue"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Quantitative_Finance_Project_files/figure-latex/unnamed-chunk-22-2.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# test for stationarity}
+\FunctionTok{adf.test}\NormalTok{(d.logZ}\FloatTok{.6}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Augmented Dickey-Fuller Test
+## 
+## data:  d.logZ.6
+## Dickey-Fuller = -0.91431, Lag order = 3, p-value = 0.9434
+## alternative hypothesis: stationary
+\end{verbatim}
+
+\hypertarget{comment-we-see-that-the-series-is-stationary-enough-to-do-any-kind-of-time-series-modelling.-2}{%
+\subsubsection{Comment: We see that the series is stationary enough to
+do any kind of time series
+modelling.}\label{comment-we-see-that-the-series-is-stationary-enough-to-do-any-kind-of-time-series-modelling.-2}}
+
+\hypertarget{identification-of-the-best-model-2}{%
+\subsection{Identification of the best
+model}\label{identification-of-the-best-model-2}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Model Selection}
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{123}\NormalTok{)}
+\FunctionTok{auto.arima}\NormalTok{(d.logZ}\FloatTok{.6}\NormalTok{, }\AttributeTok{stationary =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{ic =} \FunctionTok{c}\NormalTok{(}\StringTok{"aic"}\NormalTok{), }\AttributeTok{trace =} \ConstantTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  ARIMA(2,0,2)(1,0,1)[12] with non-zero mean : Inf
+##  ARIMA(0,0,0)            with non-zero mean : 4.418034
+##  ARIMA(1,0,0)(1,0,0)[12] with non-zero mean : 7.33503
+##  ARIMA(0,0,1)(0,0,1)[12] with non-zero mean : 6.529795
+##  ARIMA(0,0,0)            with zero mean     : 3.424238
+##  ARIMA(0,0,0)(1,0,0)[12] with non-zero mean : 5.730565
+##  ARIMA(0,0,0)(0,0,1)[12] with non-zero mean : 5.782058
+##  ARIMA(0,0,0)(1,0,1)[12] with non-zero mean : 7.573207
+##  ARIMA(1,0,0)            with non-zero mean : 6.09048
+##  ARIMA(0,0,1)            with non-zero mean : 5.347148
+##  ARIMA(1,0,1)            with non-zero mean : 6.949911
+## 
+##  Best model: ARIMA(0,0,0)            with zero mean
+\end{verbatim}
+
+\begin{verbatim}
+## Series: d.logZ.6 
+## ARIMA(0,0,0) with zero mean 
+## 
+## sigma^2 = 0.06011:  log likelihood = -0.71
+## AIC=3.42   AICc=3.5   BIC=5.41
+\end{verbatim}
+
+\hypertarget{comment-auto-arima-indicates-us-that-the-best-arima-model-is-arima000}{%
+\subsubsection{Comment: auto arima indicates us that the best arima
+model is
+ARIMA(0,0,0)}\label{comment-auto-arima-indicates-us-that-the-best-arima-model-is-arima000}}
+
+\hypertarget{weekly-model-1}{%
+\subsection{Weekly Model}\label{weekly-model-1}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# Setting up the Model}
+\NormalTok{Monthly.model }\OtherTok{\textless{}{-}} \FunctionTok{arima}\NormalTok{(d.logZ}\FloatTok{.6}\NormalTok{, }\FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{) )}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{model-evaluation-2}{%
+\subsection{Model evaluation}\label{model-evaluation-2}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# Diagnostic Checking}
+\NormalTok{U}\FloatTok{.3} \OtherTok{\textless{}{-}}\NormalTok{ Monthly.model}\SpecialCharTok{$}\NormalTok{residuals}
+\FunctionTok{plot}\NormalTok{(U}\FloatTok{.3}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Quantitative_Finance_Project_files/figure-latex/unnamed-chunk-25-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Normality of the Residuals}
+\FunctionTok{qqnorm}\NormalTok{(U}\FloatTok{.3}\NormalTok{); }\FunctionTok{qqline}\NormalTok{(U}\FloatTok{.3}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Quantitative_Finance_Project_files/figure-latex/unnamed-chunk-25-2.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# ACF of residuals}
+\FunctionTok{acf}\NormalTok{(U}\FloatTok{.3}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Quantitative_Finance_Project_files/figure-latex/unnamed-chunk-25-3.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(}\FunctionTok{density}\NormalTok{(U}\FloatTok{.3}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Quantitative_Finance_Project_files/figure-latex/unnamed-chunk-25-4.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Using tsdiag tools}
+\FunctionTok{tsdiag}\NormalTok{(Monthly.model, }\AttributeTok{gof.lag =} \DecValTok{15}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Quantitative_Finance_Project_files/figure-latex/unnamed-chunk-25-5.pdf}
+\#\# Forecasting Using our best model, we can forecast the observations
+for the next 2 years.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Monthly.pred }\OtherTok{\textless{}{-}} \FunctionTok{predict}\NormalTok{(Monthly.model, }\AttributeTok{n.ahead =} \DecValTok{2}\SpecialCharTok{*}\DecValTok{12}\NormalTok{)}
+\FunctionTok{ts.plot}\NormalTok{(Z, }\FunctionTok{exp}\NormalTok{(Monthly.pred}\SpecialCharTok{$}\NormalTok{pred), }\AttributeTok{log =} \StringTok{"y"}\NormalTok{, }\AttributeTok{lty =}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{3}\NormalTok{), }\AttributeTok{lwd =} \DecValTok{3}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Quantitative_Finance_Project_files/figure-latex/unnamed-chunk-26-1.pdf}
+
+\hypertarget{briefly-comment-on-the-differences-between-the-best-models-for-daily-weekly-and-monthly-data.}{%
+\section{6. Briefly comment on the differences between the best models
+for daily, weekly and monthly
+data.}\label{briefly-comment-on-the-differences-between-the-best-models-for-daily-weekly-and-monthly-data.}}
+
+\hypertarget{comparing-models}{%
+\subsection{Comparing Models}\label{comparing-models}}
+
+Looking at the AIC/BIC values, coefficients, and diagnostic statistics
+of each of those three models, the Daily model in term of performance is
+better than Weekly one which its turn is better than the Monthly one.
+
+\end{document}
